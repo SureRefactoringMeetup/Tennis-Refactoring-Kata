@@ -7,6 +7,15 @@ public class TennisGame1 implements TennisGame {
     private String player1Name;
     private String player2Name;
 
+    /*
+    * Score results in Tennis
+    * 0 = Love
+    * 1 = Fifteen
+    * 2 = Thirty
+    * 3 = Forty
+     */
+    String[] scoreResults = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
@@ -30,68 +39,49 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore=0;
+
         if (isSameScore())
         {
-            switch (player1Score)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
+            return getSameScoreResult();
+        }
 
-            }
-        }
-        else if (isScoreOver4())
+        if (isScoreMore4())
         {
-            int minusResult = player1Score - player2Score;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
+            return getScoreMore4Result();
         }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = player1Score;
-                else { score+="-"; tempScore = player2Score;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
-        }
-        return score;
-    }
 
-    private boolean isScoreOver4() {
-        return player1Score >= 4 || player2Score >= 4;
+        return getScoreUnder4Result();
+
     }
 
     private boolean isSameScore() {
         return player1Score == player2Score;
     }
 
+    private String getSameScoreResult() {
+        if(player1Score < 3)
+            return scoreResults[player1Score] + "-All";
+
+        return "Deuce";
+    }
+
+    private boolean isScoreMore4() {
+        return player1Score >= 4 || player2Score >= 4;
+    }
+
+    private String getScoreMore4Result() {
+
+        int scoreDiff = player1Score - player2Score;
+        String winningPlayer = scoreDiff > 0 ? "player1" : "player2";
+
+        if(Math.abs(scoreDiff) == 1)
+            return "Advantage " + winningPlayer;
+
+        return "Win for " + winningPlayer;
+    }
+
+    private String getScoreUnder4Result() {
+        return scoreResults[player1Score] + "-" + scoreResults[player2Score];
+    }
 
 }

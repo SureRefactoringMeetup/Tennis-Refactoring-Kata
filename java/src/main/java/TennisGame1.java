@@ -1,3 +1,6 @@
+package main.java;
+
+import main.java.TennisGame;
 
 public class TennisGame1 implements TennisGame {
     

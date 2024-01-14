@@ -13,16 +13,26 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
+
+        if (isPlayer1(playerName))
             player1Score += 1;
-        else
+
+        if (isPlayer2(playerName))
             player2Score += 1;
+    }
+
+    private boolean isPlayer1(String playerName) {
+        return playerName.equals("player1");
+    }
+
+    private boolean isPlayer2(String playerName) {
+        return playerName.equals("player2");
     }
 
     public String getScore() {
         String score = "";
         int tempScore=0;
-        if (player1Score == player2Score)
+        if (isSameScore())
         {
             switch (player1Score)
             {
@@ -38,10 +48,10 @@ public class TennisGame1 implements TennisGame {
                 default:
                         score = "Deuce";
                     break;
-                
+
             }
         }
-        else if (player1Score >=4 || player2Score >=4)
+        else if (isScoreOver4())
         {
             int minusResult = player1Score - player2Score;
             if (minusResult==1) score ="Advantage player1";
@@ -74,4 +84,14 @@ public class TennisGame1 implements TennisGame {
         }
         return score;
     }
+
+    private boolean isScoreOver4() {
+        return player1Score >= 4 || player2Score >= 4;
+    }
+
+    private boolean isSameScore() {
+        return player1Score == player2Score;
+    }
+
+
 }

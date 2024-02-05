@@ -1,38 +1,78 @@
 package main.java;
 
-import main.java.TennisGame;
-
 public class TennisGame3 implements TennisGame {
     
-    private int p2;
-    private int p1;
-    private String p1N;
-    private String p2N;
+    private int player2Point;
+    private int player1Point;
+    private String player1Name;
+    private String player2Name;
+    String[] point = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
 
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    public TennisGame3(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
     }
 
     public String getScore() {
-        String s;
-        if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-            s = p[p1];
-            return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
-        } else {
-            if (p1 == p2)
-                return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1-p2)*(p1-p2) == 1) ? "Advantage " + s : "Win for " + s;
+
+        String scoreCall = "";
+
+        if (isNormalScore()) {
+            scoreCall = getNormalScoreCall();
         }
+        if (isFinishableGame()) {
+            scoreCall = getFinishableScoreCall();
+        }
+
+        return scoreCall;
     }
-    
+
+    private String getFinishableScoreCall() {
+
+        if (player1Point == player2Point)
+            return "Deuce";
+
+        String winPlayer = getWinPlayer();
+
+        if(hasWinScore()){
+            return "Win for " + winPlayer;
+        }
+
+        return "Advantage " + winPlayer;
+    }
+
+    private boolean hasWinScore() {
+        return !((player1Point - player2Point) * (player1Point - player2Point) == 1);
+    }
+
+    private String getWinPlayer() {
+        return player1Point > player2Point ? player1Name : player2Name;
+    }
+
+    private String getNormalScoreCall() {
+        if(player1Point == player2Point)
+            return point[player1Point] + "-All";
+
+        return point[player1Point] + "-" + point[player2Point];
+    }
+
+    private boolean isNormalScore() {
+        return player1Point < 4 && player2Point < 4 && !(player1Point + player2Point == 6);
+    }
+
+    private boolean isFinishableGame() {
+        return !isNormalScore();
+    }
+
     public void wonPoint(String playerName) {
+        //== 는 객체의 주소값을 비교하는 것이고, equals()는 객체의 값을 비교하는 것이다.
+        // 아래의 문자열 "player1" 이라는 문자열과 playerName 이라는 문자열을 비교하는 것인데
+        // == 을 사용해도 같은 결과를 얻을 수 있는 이유는 자바에서 문자열은 상수풀에 저장되기 때문이다.
+        // 그렇기 때문에 playerName 이라는 문자열이 상수풀에 저장되어 있기 때문에 같은 주소값을 가지게 된다.
         if (playerName == "player1")
-            this.p1 += 1;
+            this.player1Point += 1;
         else
-            this.p2 += 1;
+            this.player2Point += 1;
         
     }
 

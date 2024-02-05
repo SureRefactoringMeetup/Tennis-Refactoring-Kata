@@ -27,6 +27,21 @@ public class TennisGame3 implements TennisGame {
         return scoreCall;
     }
 
+    private boolean isNormalScore() {
+        return player1Point < 4 && player2Point < 4 && !(player1Point + player2Point == 6);
+    }
+
+    private String getNormalScoreCall() {
+        if(player1Point == player2Point)
+            return point[player1Point] + "-All";
+
+        return point[player1Point] + "-" + point[player2Point];
+    }
+
+    private boolean isFinishableGame() {
+        return !isNormalScore();
+    }
+
     private String getFinishableScoreCall() {
 
         if (player1Point == player2Point)
@@ -41,27 +56,12 @@ public class TennisGame3 implements TennisGame {
         return "Advantage " + winPlayer;
     }
 
-    private boolean hasWinScore() {
-        return !((player1Point - player2Point) * (player1Point - player2Point) == 1);
-    }
-
     private String getWinPlayer() {
         return player1Point > player2Point ? player1Name : player2Name;
     }
 
-    private String getNormalScoreCall() {
-        if(player1Point == player2Point)
-            return point[player1Point] + "-All";
-
-        return point[player1Point] + "-" + point[player2Point];
-    }
-
-    private boolean isNormalScore() {
-        return player1Point < 4 && player2Point < 4 && !(player1Point + player2Point == 6);
-    }
-
-    private boolean isFinishableGame() {
-        return !isNormalScore();
+    private boolean hasWinScore() {
+        return !((player1Point - player2Point) * (player1Point - player2Point) == 1);
     }
 
     public void wonPoint(String playerName) {

@@ -1,33 +1,54 @@
-var TennisGame3 = function(p1N, p2N) {
-    this.p2 = 0;
-    this.p1 = 0;
+var TennisGame = function (player1Name, player2Name) {
+  this.scorePlayer1 = 0;
+  this.scorePlayer2 = 0;
 
-    this.p1N = p1N;
-    this.p2N = p2N;
+  this.player1Name = player1Name;
+  this.player2Name = player2Name;
 };
 
-TennisGame3.prototype.getScore = function() {
-    var s;
-    if ((this.p1 < 4 && this.p2 < 4) && (this.p1 + this.p2 < 6)) {
-        var p = ["Love", "Fifteen", "Thirty", "Forty"];
-        s = p[this.p1];
-        return (this.p1 == this.p2) ? s + "-All" : s + "-" + p[this.p2];
-    } else {
-        if (this.p1 == this.p2)
-            return "Deuce";
-        s = this.p1 > this.p2 ? this.p1N : this.p2N;
-        return ((this.p1 - this.p2) * (this.p1 - this.p2) == 1) ? "Advantage " + s : "Win for " + s;
-    }
+const ScoreNames = Object.freeze({
+  0: 'Love',
+  1: 'Fifteen',
+  2: 'Thirty',
+  3: 'Forty',
+});
+
+TennisGame.prototype.getScore = function () {
+  if (this.isEarlyGame()) {
+    return this.earlyGameScore();
+  } else {
+    return this.lateGameScore();
+  }
 };
 
-TennisGame3.prototype.wonPoint = function(playerName) {
-    if (playerName == "player1")
-        this.p1 += 1;
-    else
-        this.p2 += 1;
-
+TennisGame.prototype.isEarlyGame = function () {
+  return this.scorePlayer1 < 4 && this.scorePlayer2 < 4 && this.scorePlayer1 + this.scorePlayer2 < 6;
 };
 
-if (typeof window === "undefined") {
-    module.exports = TennisGame3;
+TennisGame.prototype.earlyGameScore = function () {
+  if (this.isTied()) {
+    return `${ScoreNames[this.scorePlayer1]}-All`;
+  } else {
+    return `${ScoreNames[this.scorePlayer1]}-${ScoreNames[this.scorePlayer2]}`;
+  }
+};
+
+TennisGame.prototype.lateGameScore = function () {
+  if (this.isTied()) return 'Deuce';
+  const leader = this.scorePlayer1 > this.scorePlayer2 ? this.player1Name : this.player2Name;
+  const scoreDifference = Math.abs(this.scorePlayer1 - this.scorePlayer2);
+  return scoreDifference === 1 ? `Advantage ${leader}` : `Win for ${leader}`;
+};
+
+TennisGame.prototype.isTied = function () {
+  return this.scorePlayer1 === this.scorePlayer2;
+};
+
+TennisGame.prototype.wonPoint = function (playerName) {
+  if (playerName == 'player1') this.scorePlayer1 += 1;
+  else this.scorePlayer2 += 1;
+};
+
+if (typeof window === 'undefined') {
+  module.exports = TennisGame;
 }

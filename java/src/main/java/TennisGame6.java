@@ -1,7 +1,3 @@
-package main.java;
-
-import main.java.TennisGame;
-
 public class TennisGame6 implements TennisGame {
     private final String player1Name;
     private final String player2Name;

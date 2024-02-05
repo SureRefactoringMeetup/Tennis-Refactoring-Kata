@@ -1,6 +1,3 @@
-package main.java;
-
-import main.java.TennisGame;
 import java.util.HashMap;
 import java.util.Map;
 

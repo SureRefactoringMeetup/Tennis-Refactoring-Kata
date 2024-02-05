@@ -1,6 +1,3 @@
-package test.java;
-
-import main.java.*;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.stream.Stream;

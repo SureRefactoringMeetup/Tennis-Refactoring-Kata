@@ -1,43 +1,100 @@
+using System.Collections.Generic;
+
 namespace Tennis
 {
-    public class TennisGame3 : ITennisGame
+    public class TennisGame3 : Player, ITennisGame
     {
-        private int p2;
-        private int p1;
-        private string p1N;
-        private string p2N;
+        Player player1 = new();
+        Player player2 = new();
 
-        public TennisGame3(string player1Name, string player2Name)
+        List<string> GameStatus = new List<string>
         {
-            this.p1N = player1Name;
-            this.p2N = player2Name;
-        }
+            "Deuce",
+            "Advantage",
+            "Win for"
+        };
+
+        List<string> TennisScoreString = new List<string>
+        {
+            "Love",
+            "Fifteen",
+            "Thirty",
+            "Forty"
+        };
 
         public string GetScore()
         {
-            string s;
-            if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6))
+            if (IsGameProgress(player1.Score, player2.Score))
             {
-                string[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                s = p[p1];
-                return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
+                if(IsSameScore(player1.Score, player2.Score))
+                {
+                    return TennisScoreString[player1.Score] + "-All";
+                }
+                else
+                {
+                    return TennisScoreString[player1.Score] + "-" + TennisScoreString[player2.Score];
+                }
             }
             else
             {
-                if (p1 == p2)
-                    return "Deuce";
-                s = p1 > p2 ? p1N : p2N;
-                return ((p1 - p2) * (p1 - p2) == 1) ? "Advantage " + s : "Win for " + s;
+                if (IsSameScore(player1.Score, player2.Score))
+                {
+                    return GameStatus[0];
+                }
+
+                string leadingPlayer = GetLeadingPlayer(player1, player2);
+                if(IsAbsoluteValue(player1.Score, player2.Score))
+                {
+                    return GameStatus[1] + leadingPlayer;
+                }
+                else
+                {
+                    return GameStatus[2] + leadingPlayer;
+                }
             }
         }
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
-                this.p1 += 1;
+            if (playerName == player1.Name)
+                player1.Score += 1;
             else
-                this.p2 += 1;
+                player2.Score += 1;
+        }
+        
+        public bool IsGameProgress(int player1score, int player2score)
+        {
+            if(player1score < 4 && player2score <4 && player1score + player2score < 6)
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        public bool IsSameScore(int player1Score , int player2Score)
+        {
+            if (player1Score == player2Score)
+            {
+                return true;
+            }
+            return false;
         }
 
+        public string GetLeadingPlayer(Player player1, Player player2)
+        {
+            if (player1.Score > player2.Score)
+            {
+                return player1.Name;
+            }
+            return player2.Name;
+        }
+        public bool IsAbsoluteValue(int player1, int player2)
+        {
+            if((player1-player2) * (player1-player2) == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

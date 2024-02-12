@@ -3,37 +3,51 @@ package main.java;
 import main.java.TennisGame;
 
 public class TennisGame3 implements TennisGame {
+    String[] tennisScores = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
     
-    private int p2;
-    private int p1;
-    private String p1N;
-    private String p2N;
-
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    private Player playerOne;
+    private Player playerTwo;
+    
+    public TennisGame3(String playerOneName, String playerTwoName) {
+        this.playerOne = playerOneName;
+        this.playerTwo = playerTwoName;
     }
 
     public String getScore() {
-        String s;
-        if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-            s = p[p1];
-            return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
+        if (isInPlayAndNotDeuce()) {
+            return getTennisScore(playerOne) + "-" + (isDeuce()? "All" : getTennisScore(playerTwo));
         } else {
-            if (p1 == p2)
+            if (isDeuce())
                 return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1-p2)*(p1-p2) == 1) ? "Advantage " + s : "Win for " + s;
+            return (isAdvantage()? "Advantage " : "Win for ") + whoIsWinningPlayer();
         }
     }
-    
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            this.p1 += 1;
+        if (playerOne.isEqualName(playerName))
+            playerOne.wonPoint();
         else
-            this.p2 += 1;
+            playerTwo.wonPoint();
         
+    }
+
+    public boolean isInPlayAndNotDeuce() {
+        return playerOne.getScore() < 4 && playerTwo.getScore() < 4 && !(playerOne.getScore() + playerTwo.getScore() == 6);
+    }
+
+    public boolean isDeuce() {
+        return playerOne.getScore() == playerTwo.getScore();
+    }
+    
+    public String whoIsWinningPlayer() {
+        return playerOne.getScore() > playerTwo.getScore()? playerOne.getName() : playerTwo.getName();
+    }
+
+    public boolean isAdvantage() {
+        return Math.abs(playerOne.getScore() - playerTwo.getScore()) == 1;
+    }
+
+    public String getTennisScore(Player player) {
+        return tennisScores[player.getScore()];
     }
 
 }

@@ -1,8 +1,8 @@
-package org.example.refactoring3.tennisgame.handler.multi;
+package han.tennisgame.handler.multi;
 
-import org.example.refactoring3.tennisgame.TennisGameMulti;
-import org.example.refactoring3.tennisgame.TennisTeam;
-import org.example.refactoring3.tennisgame.handler.TennisHandlerImpl;
+import han.tennisgame.TennisGameMulti;
+import han.tennisgame.TennisTeam;
+import han.tennisgame.handler.TennisHandlerImpl;
 
 public class TennisMultiScoreHandlerV1 extends TennisHandlerImpl {
     String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
@@ -41,3 +41,4 @@ public class TennisMultiScoreHandlerV1 extends TennisHandlerImpl {
                 p[score1] + "-" + p[score2];     // 매치포인트가 아니면서 동점도 아닐 경우
     }
 }
+

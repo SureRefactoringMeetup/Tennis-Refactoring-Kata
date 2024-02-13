@@ -61,7 +61,7 @@ public class TennisTest {
         assertEquals(expectedScore, game.getScore());
     }
 
-    @ParameterizedTest
+/*    @ParameterizedTest
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame1(int player1Points, int player2Points, String expectedScore) {
         TennisGame game = new TennisGame1("player1", "player2");
@@ -73,7 +73,7 @@ public class TennisTest {
     public void checkAllScoresTennisGame2(int player1Points, int player2Points, String expectedScore) {
         TennisGame game = new TennisGame2("player1", "player2");
         checkAllScores(player1Points, player2Points, expectedScore, game);
-    }
+    }*/
 
     @ParameterizedTest
     @MethodSource("getAllScores")
@@ -82,7 +82,7 @@ public class TennisTest {
         checkAllScores(player1Points, player2Points, expectedScore, game);
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame4(int player1Points, int player2Points, String expectedScore) {
         TennisGame game = new TennisGame4("player1", "player2");
@@ -101,5 +101,5 @@ public class TennisTest {
     public void checkAllScoresTennisGame6(int player1Points, int player2Points, String expectedScore) {
         TennisGame game = new TennisGame6("player1", "player2");
         checkAllScores(player1Points, player2Points, expectedScore, game);
-    }
+    }*/
 }

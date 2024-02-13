@@ -1,12 +1,11 @@
-package org.example.refactoring3.tennisgame;
+package han.tennisgame;
 
-import org.example.refactoring3.tennisgame.handler.TennisHandlerImpl;
-import org.example.refactoring3.tennisgame.handler.multi.TennisMultiScoreHandlerV1;
-import org.example.refactoring3.tennisgame.handler.v1.TennisGetScoreHandlerV1;
-import org.example.refactoring3.tennisgame.handler.v3.TennisGetScoreHandlerV3;
+import han.tennisgame.handler.TennisHandlerImpl;
+import han.tennisgame.handler.multi.TennisMultiScoreHandlerV1;
+import han.tennisgame.handler.v1.TennisGetScoreHandlerV1;
+import han.tennisgame.handler.v3.TennisGetScoreHandlerV3;
 
 public class TennisScoreDelegator{
-
     private TennisHandlerImpl tennisHandler;
     private static TennisScoreDelegator instance;
     public static TennisScoreDelegator getInstance(){

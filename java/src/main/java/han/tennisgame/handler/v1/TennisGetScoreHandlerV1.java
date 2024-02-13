@@ -1,9 +1,11 @@
+
 package han.tennisgame.handler.v1;
 
 import han.tennisgame.TennisGame1;
 import han.tennisgame.handler.TennisGetScoreHandler;
+import han.tennisgame.handler.TennisHandlerImpl;
 
-public class TennisGetScoreHandlerV1 implements TennisGetScoreHandler {
+public class TennisGetScoreHandlerV1 extends TennisHandlerImpl {
     private final String[] SCORE_NAMES = {"Love", "Fifteen", "Thirty", "Forty"};
     public TennisGetScoreHandlerV1(TennisGame1 tennisGame1){}
     @Override
@@ -27,3 +29,4 @@ public class TennisGetScoreHandlerV1 implements TennisGetScoreHandler {
 // 방법 1 -> Enum 활용, 유지보수 쉬움, 재사용 하기 편함, 구현하기 복잡함
 // 방법 2 -> Record 활용(VO로 활용), 단일 책임을 갖는 클래스로 빼내기 쉬움, 유지보수 쉬움, 구현 쉬움, 재사용 하기 편함
 // 방법 3 -> 배열 사용 (구현이 편함), 다른 객체에서 재사용하기 어려움
+

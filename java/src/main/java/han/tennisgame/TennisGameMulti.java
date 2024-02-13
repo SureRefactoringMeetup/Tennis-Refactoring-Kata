@@ -1,6 +1,9 @@
-package org.example.refactoring3.tennisgame;
 
-public class TennisGameMulti implements TennisGame{
+package han.tennisgame;
+
+import han.tennisgame.TennisGame;
+
+public class TennisGameMulti implements TennisGame {
     private int p2;
     private int p1;
     private TennisTeam team1;
@@ -31,3 +34,4 @@ public class TennisGameMulti implements TennisGame{
                 .getScore(team1, team2);
     }
 }
+

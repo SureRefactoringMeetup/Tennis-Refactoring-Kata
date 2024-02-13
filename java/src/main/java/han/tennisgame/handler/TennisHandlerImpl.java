@@ -1,8 +1,8 @@
-package org.example.refactoring3.tennisgame.handler;
+package han.tennisgame.handler;
 
-import org.example.refactoring3.tennisgame.TennisTeam;
+import han.tennisgame.TennisTeam;
 
-public class TennisHandlerImpl implements TennisHandler{
+public class TennisHandlerImpl implements TennisHandler {
     @Override
     public String getScoreResult(int score1, int score2) {
         return null;

@@ -2,9 +2,9 @@ package han.tennisgame.handler.v3;
 
 
 import han.tennisgame.TennisGame3;
-import han.tennisgame.handler.TennisGetScoreHandler;
+import han.tennisgame.handler.TennisHandlerImpl;
 
-public class TennisGetScoreHandlerV3 implements TennisGetScoreHandler {
+public class TennisGetScoreHandlerV3 extends TennisHandlerImpl {
     String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
     String player1, player2;
     int score1, score2;

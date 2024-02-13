@@ -1,5 +1,4 @@
-package org.example.refactoring3.tennisgame;
-
+package han.tennisgame;
 public class TennisTeam {
     String player1;
     String player2;

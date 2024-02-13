@@ -1,3 +1,4 @@
+
 package han.tennisgame;
 
 public class TennisGame1 implements TennisGame {
@@ -19,6 +20,7 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         return TennisScoreDelegator.getInstance()
                     .createTennisScoreHandler(this)
-                    .getScoreResult(m_score1, m_score2);
+                    .getScore(m_score1, m_score2);
     }
 }
+
